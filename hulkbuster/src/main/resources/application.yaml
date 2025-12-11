@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: demo
+
+server:
+  port: 8080
+
+jarvis:
+  url: "http://localhost:8081"

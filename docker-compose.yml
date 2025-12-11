@@ -1,0 +1,60 @@
+version: "3.9"
+
+services:
+  hulkbuster:
+    container_name: hulkbuster
+    build: ./hulkbuster        # 헐크버스터 서버 Dockerfile 위치
+    ports:
+      - "8080:8080"            # 호스트 8080 -> 컨테이너 8080
+    environment:
+      - APP_NAME=HULKBUSTER
+      # 내부 통신용 URL (컨테이너 안에서)
+      - JARVIS_URL=http://jarvis:8080
+      - VERONICA_URL=http://veronica:8080
+      - HULK_URL=http://hulk:8080
+    networks:
+      - avengers-net
+
+  jarvis:
+    container_name: jarvis
+    build: ./jarvis            # 자비스 서버 Dockerfile 위치
+    ports:
+      - "8081:8080"            # 호스트 8081 -> 컨테이너 8080
+    environment:
+      - APP_NAME=JARVIS
+      - HULKBUSTER_URL=http://hulkbuster:8080
+      - VERONICA_URL=http://veronica:8080
+      - HULK_URL=http://hulk:8080
+    networks:
+      - avengers-net
+
+  veronica:
+    container_name: veronica
+    build: ./veronica          # 베로니카 서버 Dockerfile 위치
+    ports:
+      - "8082:8080"            # 호스트 8082 -> 컨테이너 8080
+    environment:
+      - APP_NAME=VERONICA
+      - JARVIS_URL=http://jarvis:8080
+      - HULKBUSTER_URL=http://hulkbuster:8080
+      - HULK_URL=http://hulk:8080
+    networks:
+      - avengers-net
+
+  hulk:
+    container_name: hulk
+    build: ./hulk              # 헐크 서버 Dockerfile 위치
+    ports:
+      - "8083:8080"            # 호스트 8083 -> 컨테이너 8080
+    environment:
+      - APP_NAME=HULK
+      - JARVIS_URL=http://jarvis:8080
+      - HULKBUSTER_URL=http://hulkbuster:8080
+      - VERONICA_URL=http://veronica:8080
+    networks:
+      - avengers-net
+
+networks:
+  avengers-net:
+    driver: bridge
+
