@@ -18,7 +18,6 @@ import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
 
 @Slf4j
-@Primary
 @Component
 @RequiredArgsConstructor
 public class JarvisApiWebClient implements JarvisApiGateway {

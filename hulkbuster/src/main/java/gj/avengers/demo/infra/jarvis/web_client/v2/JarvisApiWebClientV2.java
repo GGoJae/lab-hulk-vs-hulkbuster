@@ -6,6 +6,7 @@ import gj.avengers.demo.infra.jarvis.JarvisApiGateway;
 import gj.avengers.demo.infra.jarvis.dto.ReplacementRecommendationsRequest;
 import gj.avengers.demo.infra.jarvis.dto.ReplacementRecommendationsResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -13,6 +14,7 @@ import reactor.core.scheduler.Scheduler;
 
 import java.util.concurrent.CompletableFuture;
 
+@Primary
 @Component
 @RequiredArgsConstructor
 public class JarvisApiWebClientV2 implements JarvisApiGateway {
