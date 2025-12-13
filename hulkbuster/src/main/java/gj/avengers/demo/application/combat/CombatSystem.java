@@ -1,9 +1,8 @@
-package gj.avengers.demo.shared.eventListener;
+package gj.avengers.demo.application.combat;
 
-import gj.avengers.demo.infra.dto.BodyParts;
+import gj.avengers.demo.shared.model.BodyParts;
 import gj.avengers.demo.infra.hulk.HulkGateway;
 import gj.avengers.demo.infra.jarvis.JarvisApiGateway;
-import gj.avengers.demo.infra.jarvis.web_client.v2.JarvisApiCall;
 import gj.avengers.demo.shared.event.AttackReceivedEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,8 +26,7 @@ public class CombatSystem {
 
         hulkGateway.attack(BodyParts.ARMS)
                 .thenAccept(res -> {
-                    log.info("res 가 안온건가???");
-                    log.info("헐크 공격에 대한 res: {}", res);
+                    log.info("헐크 공격에 대한 reaction: {}", res);
                 });
 
     }

@@ -1,7 +1,8 @@
 package gj.avengers.demo.infra.veronica.gateway;
 
 import gj.avengers.demo.common.util.WebClientUtil;
-import gj.avengers.demo.hulkbuster.domain.PartValue;
+import gj.avengers.demo.shared.model.LocationInfo;
+import gj.avengers.demo.shared.model.PartType;
 import gj.avengers.demo.infra.jarvis.responseSpec.LocationResponse;
 import gj.avengers.demo.infra.veronica.VeronicaGateway;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,7 @@ public class VeronicaApiWebClient implements VeronicaGateway {
 
 
     @Override
-    public CompletableFuture<Void> requestParts(LocationResponse location, List<PartValue> parts) {
+    public CompletableFuture<Void> requestParts(LocationInfo location, List<PartType> parts) {
         return toFutureWithDefaultPolicy(apiCall.requestPartsCall(location, parts));
     }
 

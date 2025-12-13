@@ -1,7 +1,7 @@
-package gj.avengers.demo.hulkbuster.service;
+package gj.avengers.demo.domain.hulkbuster.service;
 
-import gj.avengers.demo.hulkbuster.domain.HulkBuster;
-import gj.avengers.demo.hulkbuster.domain.PartValue;
+import gj.avengers.demo.domain.hulkbuster.HulkBuster;
+import gj.avengers.demo.shared.model.PartType;
 import gj.avengers.demo.shared.event.AttackReceivedEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +16,7 @@ public class DamageDetectionSystem {
     private final HulkBuster hulkBuster;
     private final ApplicationEventPublisher publisher;
 
-    public void getDamage(PartValue part, int damage) {
+    public void getDamage(PartType part, int damage) {
 
         hulkBuster.beAttacked(part, damage);
         log.info("{} 에 {} 의 데미지를 입었다!", part, damage);

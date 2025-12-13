@@ -1,9 +1,10 @@
 package gj.avengers.demo.infra.hulk.gateway;
 
 import gj.avengers.demo.common.util.WebClientUtil;
-import gj.avengers.demo.infra.dto.BodyParts;
+import gj.avengers.demo.shared.model.BodyParts;
 import gj.avengers.demo.infra.hulk.HulkGateway;
 import gj.avengers.demo.infra.hulk.responseSpec.AttackResponse;
+import gj.avengers.demo.shared.model.Reaction;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
@@ -18,8 +19,11 @@ public class HulkApiWebClient implements HulkGateway {
 
 
     @Override
-    public CompletableFuture<AttackResponse> attack(BodyParts targetPart) {
-        return toFutureWithDefaultPolicy(apiCall.attackCall(targetPart));
+    public CompletableFuture<Reaction> attack(BodyParts targetPart) {
+        return toFutureWithDefaultPolicy(
+                apiCall.attackCall(targetPart)
+                        .map(AttackResponse::reaction)
+        );
     }
 
     private <T> CompletableFuture<T> toFutureWithDefaultPolicy(Mono<T> mono) {

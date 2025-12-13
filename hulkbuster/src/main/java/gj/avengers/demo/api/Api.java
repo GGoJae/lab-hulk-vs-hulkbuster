@@ -1,7 +1,7 @@
-package gj.avengers.demo.hulkbuster.api;
+package gj.avengers.demo.api;
 
-import gj.avengers.demo.hulkbuster.api.dto.BeAttackedRequest;
-import gj.avengers.demo.hulkbuster.service.DamageDetectionSystem;
+import gj.avengers.demo.api.request.BeAttackedRequest;
+import gj.avengers.demo.domain.hulkbuster.service.DamageDetectionSystem;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

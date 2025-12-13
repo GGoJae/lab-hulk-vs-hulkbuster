@@ -1,10 +1,11 @@
 package gj.avengers.demo.infra.jarvis.web_client.v1;
 
-import gj.avengers.demo.hulkbuster.domain.HulkBuster;
+import gj.avengers.demo.domain.hulkbuster.HulkBuster;
+import gj.avengers.demo.shared.model.PartType;
 import gj.avengers.demo.infra.jarvis.JarvisApiGateway;
-import gj.avengers.demo.infra.jarvis.responseSpec.LocationResponse;
 import gj.avengers.demo.infra.jarvis.requestSpec.ReplacementRecommendationsRequest;
 import gj.avengers.demo.infra.jarvis.responseSpec.ReplacementRecommendationsResponse;
+import gj.avengers.demo.shared.model.LocationInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -15,6 +16,7 @@ import reactor.core.scheduler.Scheduler;
 import reactor.util.retry.Retry;
 
 import java.time.Duration;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 @Slf4j
@@ -26,7 +28,7 @@ public class JarvisApiWebClient implements JarvisApiGateway {
     private final Scheduler apiScheduler;
 
     @Override
-    public CompletableFuture<ReplacementRecommendationsResponse> requestReplacementRecommendations(
+    public CompletableFuture<List<PartType>> requestReplacementRecommendations(
             HulkBuster.TotalState state
     ) {
         log.info("여기의 state? {} ", state);
@@ -35,19 +37,21 @@ public class JarvisApiWebClient implements JarvisApiGateway {
                 .bodyValue(new ReplacementRecommendationsRequest(state.states()))
                 .retrieve()
                 .bodyToMono(ReplacementRecommendationsResponse.class)
+                .map(ReplacementRecommendationsResponse::needReplacementParts)
                 .retryWhen(Retry.backoff(3, Duration.ofMillis(500))
                         .filter(t -> t instanceof WebClientRequestException ||
                                 (t instanceof WebClientResponseException r && r.getStatusCode().is5xxServerError())
                         )
                 )
                 .subscribeOn(apiScheduler)
+
                 .toFuture();
 
 
     }
 
     @Override
-    public CompletableFuture<LocationResponse> requestHulkbusterLocation() {
+    public CompletableFuture<LocationInfo> requestHulkbusterLocation() {
         // TODO 공통
         return null;
     }

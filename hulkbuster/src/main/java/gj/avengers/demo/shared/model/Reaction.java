@@ -1,4 +1,4 @@
-package gj.avengers.demo.infra.dto;
+package gj.avengers.demo.shared.model;
 
 public enum Reaction {
     PAINFUL, ITCHY

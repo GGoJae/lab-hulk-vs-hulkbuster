@@ -1,14 +1,15 @@
 package gj.avengers.demo.infra.jarvis;
 
-import gj.avengers.demo.hulkbuster.domain.HulkBuster;
-import gj.avengers.demo.infra.jarvis.responseSpec.LocationResponse;
-import gj.avengers.demo.infra.jarvis.responseSpec.ReplacementRecommendationsResponse;
+import gj.avengers.demo.domain.hulkbuster.HulkBuster;
+import gj.avengers.demo.shared.model.PartType;
+import gj.avengers.demo.shared.model.LocationInfo;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public interface JarvisApiGateway {
 
-    CompletableFuture<ReplacementRecommendationsResponse> requestReplacementRecommendations(HulkBuster.TotalState state);
+    CompletableFuture<List<PartType>> requestReplacementRecommendations(HulkBuster.TotalState state);
 
-    CompletableFuture<LocationResponse> requestHulkbusterLocation();
+    CompletableFuture<LocationInfo> requestHulkbusterLocation();
 }

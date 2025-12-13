@@ -1,6 +1,7 @@
 package gj.avengers.demo.infra.veronica.gateway;
 
-import gj.avengers.demo.hulkbuster.domain.PartValue;
+import gj.avengers.demo.shared.model.LocationInfo;
+import gj.avengers.demo.shared.model.PartType;
 import gj.avengers.demo.infra.jarvis.responseSpec.LocationResponse;
 import gj.avengers.demo.infra.veronica.requestSpec.RequestPartsRequest;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,7 +20,7 @@ public class VeronicaApiCall {
         this.veronicaWebClient = veronicaWebClient;
     }
 
-    public Mono<Void> requestPartsCall(LocationResponse location, List<PartValue> parts) {
+    public Mono<Void> requestPartsCall(LocationInfo location, List<PartType> parts) {
         return veronicaWebClient.post()
                 .uri("/request-parts")
                 .bodyValue(RequestPartsRequest.of(location, parts))

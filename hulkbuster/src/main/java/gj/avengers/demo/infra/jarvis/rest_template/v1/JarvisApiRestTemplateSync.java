@@ -1,6 +1,6 @@
 package gj.avengers.demo.infra.jarvis.rest_template.v1;
 
-import gj.avengers.demo.hulkbuster.domain.HulkBuster;
+import gj.avengers.demo.domain.hulkbuster.HulkBuster;
 import gj.avengers.demo.infra.jarvis.requestSpec.ReplacementRecommendationsRequest;
 import gj.avengers.demo.infra.jarvis.responseSpec.ReplacementRecommendationsResponse;
 import lombok.RequiredArgsConstructor;

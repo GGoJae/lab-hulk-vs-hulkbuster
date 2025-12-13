@@ -1,11 +1,11 @@
 package gj.avengers.demo.infra.jarvis.responseSpec;
 
-import gj.avengers.demo.hulkbuster.domain.PartValue;
+import gj.avengers.demo.shared.model.PartType;
 
 import java.util.List;
 
 public record ReplacementRecommendationsResponse(
-        List<PartValue> needReplacementParts
+        List<PartType> needReplacementParts
 ) {
 
     public boolean hasReplacementParts() {

@@ -1,33 +1,27 @@
-package gj.avengers.demo.hulkbuster.domain.parts;
+package gj.avengers.demo.domain.hulkbuster.parts;
 
-import gj.avengers.demo.hulkbuster.domain.PartValue;
+import gj.avengers.demo.shared.model.PartType;
 import lombok.Getter;
 
 @Getter
-public class Armor implements Part{
+public class Helmets implements Part {
     private int durable;
     private boolean isBroken;
 
     private static final int MAX_DURABLE = 100;
 
-
-    private Armor(int durable, boolean isBroken) {
+    public Helmets(int durable, boolean isBroken) {
         this.durable = durable;
         this.isBroken = isBroken;
     }
 
-    public static Armor newArmor() {
-        return new Armor(MAX_DURABLE, false);
+    public static Helmets newHelmets() {
+        return new Helmets(MAX_DURABLE, false);
     }
 
     @Override
-    public PartValue type() {
-        return PartValue.ARMOR;
-    }
-
-    @Override
-    public int currentDurable() {
-        return this.durable;
+    public PartType type() {
+        return PartType.HELMETS;
     }
 
     @Override
@@ -42,4 +36,8 @@ public class Armor implements Part{
         // TODO 파츠가 부셔지면 어떻게 할건지 생각해보기
     }
 
+    @Override
+    public int currentDurable() {
+        return this.durable;
+    }
 }

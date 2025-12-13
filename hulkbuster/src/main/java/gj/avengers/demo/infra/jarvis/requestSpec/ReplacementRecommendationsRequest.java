@@ -1,6 +1,6 @@
 package gj.avengers.demo.infra.jarvis.requestSpec;
 
-import gj.avengers.demo.hulkbuster.domain.HulkBuster;
+import gj.avengers.demo.domain.hulkbuster.HulkBuster;
 
 import java.util.List;
 

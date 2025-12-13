@@ -1,34 +1,34 @@
-package gj.avengers.demo.hulkbuster.domain.parts;
+package gj.avengers.demo.domain.hulkbuster.parts;
 
-import gj.avengers.demo.hulkbuster.domain.PartValue;
+import gj.avengers.demo.shared.model.PartType;
 import lombok.Getter;
 
 @Getter
-public class Legs implements Part{
+public class Arms implements Part {
     private int durable;
     private boolean isBroken;
 
     private static final int MAX_DURABLE = 100;
 
-    public Legs(int durable, boolean isBroken) {
+    public Arms(int durable, boolean isBroken) {
         this.durable = durable;
         this.isBroken = isBroken;
     }
 
-    public static Legs newLegs() {
-        return new Legs(MAX_DURABLE, false);
+    public static Arms newArms() {
+        return new Arms(MAX_DURABLE, false);
     }
 
     @Override
-    public PartValue type() {
-        return PartValue.LEGS;
+    public PartType type() {
+        return PartType.ARMS;
     }
 
     @Override
     public void getDamage(int damage) {
         if (this.durable <= damage) {
             this.durable = 0;
-            this.isBroken = true;
+            isBroken = true;
         }
 
         this.durable -= damage;

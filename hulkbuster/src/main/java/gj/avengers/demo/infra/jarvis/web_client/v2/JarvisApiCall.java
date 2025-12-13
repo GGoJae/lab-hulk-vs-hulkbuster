@@ -1,6 +1,6 @@
 package gj.avengers.demo.infra.jarvis.web_client.v2;
 
-import gj.avengers.demo.hulkbuster.domain.HulkBuster;
+import gj.avengers.demo.domain.hulkbuster.HulkBuster;
 import gj.avengers.demo.infra.jarvis.responseSpec.LocationResponse;
 import gj.avengers.demo.infra.jarvis.requestSpec.ReplacementRecommendationsRequest;
 import gj.avengers.demo.infra.jarvis.responseSpec.ReplacementRecommendationsResponse;
