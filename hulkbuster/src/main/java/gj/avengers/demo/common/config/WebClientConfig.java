@@ -21,6 +21,9 @@ public class WebClientConfig {
     @Value("${jarvis.url}")
     private String jarvisBaseUrl;
 
+    @Value("${veronica.url}")
+    private String veronicaBaseUrl;
+
     @Bean
     public WebClient jarvisWebClient() {
         return WebClient.builder()
@@ -35,6 +38,23 @@ public class WebClientConfig {
                             })
                             .doOnError(e -> log.error("Jarvis 호출 중 에러", e));
                 }))
+                .build();
+    }
+
+    @Bean
+    public WebClient veronicaWebClient() {
+        return WebClient.builder()
+                .baseUrl(veronicaBaseUrl)
+                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .clientConnector(new ReactorClientHttpConnector(myHttpClient))
+                .filter((((request, next) -> {
+                    log.info("Request: {} {}", request.method(), request.url());
+                    return next.exchange(request)
+                            .doOnNext(response -> {
+                                log.info("Response: {}", response.statusCode());
+                            })
+                            .doOnError(e -> log.error("Veronica 호출 중 에러", e));
+                })))
                 .build();
     }
 

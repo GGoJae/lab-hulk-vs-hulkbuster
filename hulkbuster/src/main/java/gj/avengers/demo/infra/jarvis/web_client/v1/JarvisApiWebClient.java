@@ -2,12 +2,11 @@ package gj.avengers.demo.infra.jarvis.web_client.v1;
 
 import gj.avengers.demo.hulkbuster.domain.HulkBuster;
 import gj.avengers.demo.infra.jarvis.JarvisApiGateway;
-import gj.avengers.demo.infra.jarvis.dto.LocationResponse;
+import gj.avengers.demo.infra.dto.LocationResponse;
 import gj.avengers.demo.infra.jarvis.dto.ReplacementRecommendationsRequest;
 import gj.avengers.demo.infra.jarvis.dto.ReplacementRecommendationsResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientRequestException;

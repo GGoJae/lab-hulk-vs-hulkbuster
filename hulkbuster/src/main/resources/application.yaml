@@ -7,3 +7,9 @@ server:
 
 jarvis:
   url: "http://localhost:8081"
+
+veronica:
+  url: "http://localhost:8082"
+
+hulk:
+  url: "http://localhost:8083"

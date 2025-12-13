@@ -3,13 +3,12 @@ package gj.avengers.demo.infra.jarvis.web_client.v2;
 import gj.avengers.demo.common.util.WebClientUtil;
 import gj.avengers.demo.hulkbuster.domain.HulkBuster;
 import gj.avengers.demo.infra.jarvis.JarvisApiGateway;
-import gj.avengers.demo.infra.jarvis.dto.LocationResponse;
+import gj.avengers.demo.infra.dto.LocationResponse;
 import gj.avengers.demo.infra.jarvis.dto.ReplacementRecommendationsResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
-import reactor.core.scheduler.Scheduler;
 
 import java.util.concurrent.CompletableFuture;
 

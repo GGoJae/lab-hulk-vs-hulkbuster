@@ -1,6 +1,7 @@
 package gj.avengers.demo.shared.eventListener;
 
 import gj.avengers.demo.infra.jarvis.JarvisApiGateway;
+import gj.avengers.demo.infra.veronica.VeronicaGateway;
 import gj.avengers.demo.shared.event.AttackReceivedEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,12 +13,13 @@ import java.util.concurrent.CompletableFuture;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class AttackResponseSystem {
+public class MaintenanceSystem {
 
     private final JarvisApiGateway jarvisApiGateway;
+    private final VeronicaGateway veronicaGateway;
 
     /*
-    중요: 만약 AttackReceivedEvent를 구독하고있는 이벤트 리스너가 여러개고
+    중요: 만약 AttackReceivedEvent 를 구독하고있는 이벤트 리스너가 여러개고
     그 이벤트 리스너에서 비동기 코드들을 호출만 하고 끝나는게 아니라
     블럭킹 코드로 기다리고 있다면 사용자 응답 속도도 그만큼 느려지니
     만약 지금 코드에서 이벤트 리스너가 늘어나고, 블럭킹 코드를 사용하고 있다면
@@ -25,12 +27,12 @@ public class AttackResponseSystem {
     하지만 위 같은 경우에도 에벤트 리스너가 비동기 코드들을 호출만하고 끝난다면 동기코드가 낫다.
     괜히 각각의 이벤트 리스너를 위해 비동기 등록한 스레드들이 여러개 나와서 호출만 하고 사라지기 떄문.
     상황에 따라 다르겠지만 대체로 이벤트 리스너는 동기 호출 + 비동기 논블록킹 코드들을 호출만 하고 끝내는 방법이면 충분해보임
-    지금은 AttackReceivedEvent를 구독하는 이벤트 리스너가 1개고
+    지금은 AttackReceivedEvent 를 구독하는 이벤트 리스너가 1개고
     비동기 코드들을 호출만 하고 끝내고 비동기 코드들은
      */
 //    @Async("asyncExecutor")
     @EventListener
-    public void attackResponse(AttackReceivedEvent event) {
+    public void determiningDamageAndRequestParts(AttackReceivedEvent event) {
 
         // TODO 우선 상태에서 망가진 파츠가 있다면 바로 베로니카에게 파츠 요청 api 날리기
 
@@ -42,16 +44,14 @@ public class AttackResponseSystem {
                     }
 
                     return jarvisApiGateway.requestHulkbusterLocation()
-                            .thenAccept(locInfo -> {
-                                log.info("자비스에게서 온 위치 정보 : {}", locInfo);
-                            });
+                            .thenCompose(loc -> veronicaGateway.requestParts(loc, res.needReplacementParts()))
+                            .thenAccept(v -> log.info("베로니카에 파츠 요청 성공"));
 
                 })
                 .exceptionally(ex -> {
                     log.error("공격 응답 처리 중 에러 발생", ex);
                     return null;
                 });
-
 
     }
 }
