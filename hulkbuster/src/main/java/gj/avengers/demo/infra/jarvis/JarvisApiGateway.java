@@ -1,8 +1,8 @@
 package gj.avengers.demo.infra.jarvis;
 
 import gj.avengers.demo.hulkbuster.domain.HulkBuster;
-import gj.avengers.demo.infra.dto.LocationResponse;
-import gj.avengers.demo.infra.jarvis.dto.ReplacementRecommendationsResponse;
+import gj.avengers.demo.infra.jarvis.responseSpec.LocationResponse;
+import gj.avengers.demo.infra.jarvis.responseSpec.ReplacementRecommendationsResponse;
 
 import java.util.concurrent.CompletableFuture;
 

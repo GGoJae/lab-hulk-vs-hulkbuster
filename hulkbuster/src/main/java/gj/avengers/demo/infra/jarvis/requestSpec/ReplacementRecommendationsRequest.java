@@ -1,4 +1,4 @@
-package gj.avengers.demo.infra.jarvis.dto;
+package gj.avengers.demo.infra.jarvis.requestSpec;
 
 import gj.avengers.demo.hulkbuster.domain.HulkBuster;
 

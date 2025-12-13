@@ -1,10 +1,9 @@
-package gj.avengers.demo.infra.veronica.web_client;
+package gj.avengers.demo.infra.veronica.gateway;
 
 import gj.avengers.demo.hulkbuster.domain.PartValue;
-import gj.avengers.demo.infra.dto.LocationResponse;
-import gj.avengers.demo.infra.veronica.dto.RequestPartsRequest;
+import gj.avengers.demo.infra.jarvis.responseSpec.LocationResponse;
+import gj.avengers.demo.infra.veronica.requestSpec.RequestPartsRequest;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;

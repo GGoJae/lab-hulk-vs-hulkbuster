@@ -49,7 +49,7 @@ public class MaintenanceSystem {
 
                 })
                 .exceptionally(ex -> {
-                    log.error("공격 응답 처리 중 에러 발생", ex);
+                    log.error("공격 당한 후 파츠 요청 메서드 중 에러 발생", ex);
                     return null;
                 });
 

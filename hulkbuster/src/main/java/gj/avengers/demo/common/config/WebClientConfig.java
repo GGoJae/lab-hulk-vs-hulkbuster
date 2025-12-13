@@ -24,6 +24,9 @@ public class WebClientConfig {
     @Value("${veronica.url}")
     private String veronicaBaseUrl;
 
+    @Value("${hulk.url}")
+    private String hulkBaseUrl;
+
     @Bean
     public WebClient jarvisWebClient() {
         return WebClient.builder()
@@ -31,10 +34,10 @@ public class WebClientConfig {
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .clientConnector(new ReactorClientHttpConnector(myHttpClient))
                 .filter(((request, next) -> {
-                    log.info("Request: {} {}", request.method(), request.url());
+                    log.info("Jarvis Request: {} {}", request.method(), request.url());
                     return next.exchange(request)
                             .doOnNext(response -> {
-                                log.info("Response: {}", response.statusCode());
+                                log.info("Jarvis Response: {}", response.statusCode());
                             })
                             .doOnError(e -> log.error("Jarvis 호출 중 에러", e));
                 }))
@@ -48,12 +51,29 @@ public class WebClientConfig {
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .clientConnector(new ReactorClientHttpConnector(myHttpClient))
                 .filter((((request, next) -> {
-                    log.info("Request: {} {}", request.method(), request.url());
+                    log.info("Veronica Request: {} {}", request.method(), request.url());
                     return next.exchange(request)
                             .doOnNext(response -> {
-                                log.info("Response: {}", response.statusCode());
+                                log.info("Veronica Response: {}", response.statusCode());
                             })
                             .doOnError(e -> log.error("Veronica 호출 중 에러", e));
+                })))
+                .build();
+    }
+
+    @Bean
+    public WebClient hulkWebClient() {
+        return WebClient.builder()
+                .baseUrl(hulkBaseUrl)
+                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .clientConnector(new ReactorClientHttpConnector(myHttpClient))
+                .filter((((request, next) -> {
+                    log.info("Hulk Request: {} {}", request.method(), request.url());
+                    return next.exchange(request)
+                            .doOnNext(response -> {
+                                log.info("Hulk Response: {}", response.statusCode());
+                            })
+                            .doOnError(e -> log.error("Hulk 호출 중 에러", e));
                 })))
                 .build();
     }

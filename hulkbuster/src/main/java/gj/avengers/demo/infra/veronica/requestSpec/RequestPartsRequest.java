@@ -1,7 +1,7 @@
-package gj.avengers.demo.infra.veronica.dto;
+package gj.avengers.demo.infra.veronica.requestSpec;
 
 import gj.avengers.demo.hulkbuster.domain.PartValue;
-import gj.avengers.demo.infra.dto.LocationResponse;
+import gj.avengers.demo.infra.jarvis.responseSpec.LocationResponse;
 
 import java.util.List;
 

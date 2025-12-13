@@ -1,8 +1,8 @@
-package gj.avengers.demo.infra.veronica.web_client;
+package gj.avengers.demo.infra.veronica.gateway;
 
 import gj.avengers.demo.common.util.WebClientUtil;
 import gj.avengers.demo.hulkbuster.domain.PartValue;
-import gj.avengers.demo.infra.dto.LocationResponse;
+import gj.avengers.demo.infra.jarvis.responseSpec.LocationResponse;
 import gj.avengers.demo.infra.veronica.VeronicaGateway;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

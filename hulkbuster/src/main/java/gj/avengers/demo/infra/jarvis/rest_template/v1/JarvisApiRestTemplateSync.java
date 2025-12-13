@@ -1,8 +1,8 @@
 package gj.avengers.demo.infra.jarvis.rest_template.v1;
 
 import gj.avengers.demo.hulkbuster.domain.HulkBuster;
-import gj.avengers.demo.infra.jarvis.dto.ReplacementRecommendationsRequest;
-import gj.avengers.demo.infra.jarvis.dto.ReplacementRecommendationsResponse;
+import gj.avengers.demo.infra.jarvis.requestSpec.ReplacementRecommendationsRequest;
+import gj.avengers.demo.infra.jarvis.responseSpec.ReplacementRecommendationsResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.retry.annotation.Backoff;

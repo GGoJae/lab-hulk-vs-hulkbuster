@@ -2,8 +2,8 @@ package gj.avengers.demo.infra.jarvis.rest_template.v1;
 
 import gj.avengers.demo.hulkbuster.domain.HulkBuster;
 import gj.avengers.demo.infra.jarvis.JarvisApiGateway;
-import gj.avengers.demo.infra.dto.LocationResponse;
-import gj.avengers.demo.infra.jarvis.dto.ReplacementRecommendationsResponse;
+import gj.avengers.demo.infra.jarvis.responseSpec.LocationResponse;
+import gj.avengers.demo.infra.jarvis.responseSpec.ReplacementRecommendationsResponse;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 

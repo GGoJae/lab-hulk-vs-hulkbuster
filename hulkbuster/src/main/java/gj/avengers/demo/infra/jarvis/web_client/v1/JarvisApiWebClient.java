@@ -2,9 +2,9 @@ package gj.avengers.demo.infra.jarvis.web_client.v1;
 
 import gj.avengers.demo.hulkbuster.domain.HulkBuster;
 import gj.avengers.demo.infra.jarvis.JarvisApiGateway;
-import gj.avengers.demo.infra.dto.LocationResponse;
-import gj.avengers.demo.infra.jarvis.dto.ReplacementRecommendationsRequest;
-import gj.avengers.demo.infra.jarvis.dto.ReplacementRecommendationsResponse;
+import gj.avengers.demo.infra.jarvis.responseSpec.LocationResponse;
+import gj.avengers.demo.infra.jarvis.requestSpec.ReplacementRecommendationsRequest;
+import gj.avengers.demo.infra.jarvis.responseSpec.ReplacementRecommendationsResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
