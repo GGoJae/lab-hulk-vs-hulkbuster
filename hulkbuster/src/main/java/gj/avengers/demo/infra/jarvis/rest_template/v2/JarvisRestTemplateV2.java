@@ -3,6 +3,7 @@ package gj.avengers.demo.infra.jarvis.rest_template.v2;
 import gj.avengers.demo.common.util.externalCall.ExternalCallExecutor;
 import gj.avengers.demo.hulkbuster.domain.HulkBuster;
 import gj.avengers.demo.infra.jarvis.JarvisApiGateway;
+import gj.avengers.demo.infra.jarvis.dto.LocationResponse;
 import gj.avengers.demo.infra.jarvis.dto.ReplacementRecommendationsRequest;
 import gj.avengers.demo.infra.jarvis.dto.ReplacementRecommendationsResponse;
 import lombok.RequiredArgsConstructor;
@@ -29,5 +30,11 @@ public class JarvisRestTemplateV2 implements JarvisApiGateway {
                 new ReplacementRecommendationsRequest(state.states()),
                 ReplacementRecommendationsResponse.class
         ));
+    }
+
+    @Override
+    public CompletableFuture<LocationResponse> requestHulkbusterLocation() {
+        // TODO
+        return null;
     }
 }

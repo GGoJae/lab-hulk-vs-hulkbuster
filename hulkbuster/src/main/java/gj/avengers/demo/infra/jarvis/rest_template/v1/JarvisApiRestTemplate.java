@@ -2,6 +2,7 @@ package gj.avengers.demo.infra.jarvis.rest_template.v1;
 
 import gj.avengers.demo.hulkbuster.domain.HulkBuster;
 import gj.avengers.demo.infra.jarvis.JarvisApiGateway;
+import gj.avengers.demo.infra.jarvis.dto.LocationResponse;
 import gj.avengers.demo.infra.jarvis.dto.ReplacementRecommendationsResponse;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -30,6 +31,12 @@ public class JarvisApiRestTemplate implements JarvisApiGateway {
                 () -> jarvisApiRestTemplateSync.requestReplacementRecommendationsSync(state),
                 executor
         );
+    }
+
+    @Override
+    public CompletableFuture<LocationResponse> requestHulkbusterLocation() {
+        // TODO
+        return null;
     }
 
 }

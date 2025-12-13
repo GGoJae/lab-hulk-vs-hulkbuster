@@ -10,5 +10,5 @@ public interface JarvisApiGateway {
 
     CompletableFuture<ReplacementRecommendationsResponse> requestReplacementRecommendations(HulkBuster.TotalState state);
 
-//    CompletableFuture<LocationResponse> requestHulkbusterLocation();
+    CompletableFuture<LocationResponse> requestHulkbusterLocation();
 }

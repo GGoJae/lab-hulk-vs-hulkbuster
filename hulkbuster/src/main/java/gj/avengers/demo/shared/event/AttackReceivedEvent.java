@@ -1,4 +1,4 @@
-package gj.avengers.demo.hulkbuster.event;
+package gj.avengers.demo.shared.event;
 
 import gj.avengers.demo.hulkbuster.domain.HulkBuster;
 

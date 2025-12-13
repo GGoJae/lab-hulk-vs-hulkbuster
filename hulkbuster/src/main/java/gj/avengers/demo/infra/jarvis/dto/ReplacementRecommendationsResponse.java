@@ -7,4 +7,12 @@ import java.util.List;
 public record ReplacementRecommendationsResponse(
         List<PartValue> needReplacementParts
 ) {
+
+    public boolean hasReplacementParts() {
+        return !needReplacementParts.isEmpty();
+    }
+
+    public boolean isNothingToReplace() {
+        return needReplacementParts.isEmpty();
+    }
 }

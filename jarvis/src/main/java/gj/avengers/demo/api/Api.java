@@ -1,11 +1,13 @@
 package gj.avengers.demo.api;
 
-import gj.avengers.demo.api.request.RecommendationsRequest;
-import gj.avengers.demo.api.response.RecommendationsResponse;
-import gj.avengers.demo.service.RecommendationsService;
+import gj.avengers.demo.request.RecommendationsRequest;
+import gj.avengers.demo.response.CurrentLocation;
+import gj.avengers.demo.response.RecommendationsResponse;
+import gj.avengers.demo.service.JarvisBrain;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +19,7 @@ import java.util.concurrent.CompletableFuture;
 @RequiredArgsConstructor
 public class Api {
 
-    private final RecommendationsService recommendationsService;
+    private final JarvisBrain jarvisBrain;
 
     @PostMapping("/recommendations")
     public CompletableFuture<ResponseEntity<RecommendationsResponse>> replacementRecommendations(
@@ -25,10 +27,21 @@ public class Api {
     ) {
         log.info("request 한번 볼까!!! {}", request);
 
-        return recommendationsService.detectionReplacement(request.states())
-                .thenApply(RecommendationsResponse::new)
+        return jarvisBrain.detectionReplacement(request.states())
                 .thenApply(res -> {
-                    log.info("res : {}", res);
+                    log.info("recommendations 의 res : {}", res);
+                    return res;
+                })
+                .thenApply(ResponseEntity::ok);
+    }
+
+    @GetMapping("/locations")
+    public CompletableFuture<ResponseEntity<CurrentLocation>> getLocationInfo() {
+        log.info("locations 호출!");
+
+        return jarvisBrain.currentLocation()
+                .thenApply(res -> {
+                    log.info("location res : {}", res);
                     return res;
                 })
                 .thenApply(ResponseEntity::ok);

@@ -1,4 +1,4 @@
-package gj.avengers.demo.api.request;
+package gj.avengers.demo.request;
 
 import gj.avengers.demo.dto.State;
 

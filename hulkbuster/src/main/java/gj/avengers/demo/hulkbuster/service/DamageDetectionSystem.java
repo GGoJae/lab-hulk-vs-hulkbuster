@@ -2,7 +2,7 @@ package gj.avengers.demo.hulkbuster.service;
 
 import gj.avengers.demo.hulkbuster.domain.HulkBuster;
 import gj.avengers.demo.hulkbuster.domain.PartValue;
-import gj.avengers.demo.hulkbuster.event.AttackReceivedEvent;
+import gj.avengers.demo.shared.event.AttackReceivedEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
