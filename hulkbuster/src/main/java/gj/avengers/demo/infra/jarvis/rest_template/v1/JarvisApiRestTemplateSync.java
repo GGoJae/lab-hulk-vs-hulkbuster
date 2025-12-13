@@ -1,8 +1,8 @@
 package gj.avengers.demo.infra.jarvis.rest_template.v1;
 
-import gj.avengers.demo.domain.hulkbuster.HulkBuster;
 import gj.avengers.demo.infra.jarvis.requestSpec.ReplacementRecommendationsRequest;
 import gj.avengers.demo.infra.jarvis.responseSpec.ReplacementRecommendationsResponse;
+import gj.avengers.demo.domain.hulkbuster.model.Status;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.retry.annotation.Backoff;
@@ -25,11 +25,11 @@ public class JarvisApiRestTemplateSync {
             maxAttempts = 3,
             backoff = @Backoff(delay = 500)
     )
-    public ReplacementRecommendationsResponse requestReplacementRecommendationsSync(HulkBuster.TotalState state) {
+    public ReplacementRecommendationsResponse requestReplacementRecommendationsSync(Status state) {
 
         return restTemplate.postForObject(
                 jarvisBaseUrl + "/recommendations",
-                new ReplacementRecommendationsRequest(state.states()),
+                new ReplacementRecommendationsRequest(state.partStatuses()),
                 ReplacementRecommendationsResponse.class);
     }
 }

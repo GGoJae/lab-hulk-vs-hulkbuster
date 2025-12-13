@@ -1,7 +1,7 @@
 package gj.avengers.demo.shared.event;
 
-import gj.avengers.demo.domain.hulkbuster.HulkBuster;
+import gj.avengers.demo.domain.hulkbuster.model.Status;
 
 public record AttackReceivedEvent(
-        HulkBuster.TotalState state) {
+        Status state) {
 }

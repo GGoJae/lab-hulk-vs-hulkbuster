@@ -1,7 +1,7 @@
 package gj.avengers.demo.application.maintenance;
 
-import gj.avengers.demo.infra.jarvis.JarvisApiGateway;
-import gj.avengers.demo.infra.veronica.VeronicaGateway;
+import gj.avengers.demo.application.out.JarvisPort;
+import gj.avengers.demo.application.out.VeronicaPort;
 import gj.avengers.demo.shared.event.AttackReceivedEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,8 +15,8 @@ import java.util.concurrent.CompletableFuture;
 @RequiredArgsConstructor
 public class MaintenanceSystem {
 
-    private final JarvisApiGateway jarvisApiGateway;
-    private final VeronicaGateway veronicaGateway;
+    private final JarvisPort jarvisPort;
+    private final VeronicaPort veronicaPort;
 
     /*
     중요: 만약 AttackReceivedEvent 를 구독하고있는 이벤트 리스너가 여러개고
@@ -36,15 +36,15 @@ public class MaintenanceSystem {
 
         // TODO 우선 상태에서 망가진 파츠가 있다면 바로 베로니카에게 파츠 요청 api 날리기
 
-        jarvisApiGateway.requestReplacementRecommendations(event.state())
+        jarvisPort.requestReplacementRecommendations(event.state())
                 .thenCompose(needReplacementParts -> {
                     if (needReplacementParts.isEmpty()) {
                         log.info("교체 불필요, 위치 정보 필요없음");
                         return CompletableFuture.<Void>completedFuture(null);
                     }
 
-                    return jarvisApiGateway.requestHulkbusterLocation()
-                            .thenCompose(loc -> veronicaGateway.requestParts(loc, needReplacementParts))
+                    return jarvisPort.requestHulkbusterLocation()
+                            .thenCompose(loc -> veronicaPort.requestParts(loc, needReplacementParts))
                             .thenAccept(v -> log.info("베로니카에 파츠 요청 성공"));
 
                 })

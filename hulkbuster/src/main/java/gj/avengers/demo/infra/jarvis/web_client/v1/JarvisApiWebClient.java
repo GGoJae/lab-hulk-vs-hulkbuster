@@ -1,11 +1,11 @@
 package gj.avengers.demo.infra.jarvis.web_client.v1;
 
-import gj.avengers.demo.domain.hulkbuster.HulkBuster;
-import gj.avengers.demo.shared.model.PartType;
-import gj.avengers.demo.infra.jarvis.JarvisApiGateway;
+import gj.avengers.demo.application.out.JarvisPort;
 import gj.avengers.demo.infra.jarvis.requestSpec.ReplacementRecommendationsRequest;
 import gj.avengers.demo.infra.jarvis.responseSpec.ReplacementRecommendationsResponse;
+import gj.avengers.demo.domain.hulkbuster.model.Status;
 import gj.avengers.demo.shared.model.LocationInfo;
+import gj.avengers.demo.shared.model.PartType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -22,19 +22,19 @@ import java.util.concurrent.CompletableFuture;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class JarvisApiWebClient implements JarvisApiGateway {
+public class JarvisApiWebClient implements JarvisPort {
 
     private final WebClient jarvisWebClient;
     private final Scheduler apiScheduler;
 
     @Override
     public CompletableFuture<List<PartType>> requestReplacementRecommendations(
-            HulkBuster.TotalState state
+            Status state
     ) {
         log.info("여기의 state? {} ", state);
         return jarvisWebClient.post()
                 .uri("/recommendations")
-                .bodyValue(new ReplacementRecommendationsRequest(state.states()))
+                .bodyValue(new ReplacementRecommendationsRequest(state.partStatuses()))
                 .retrieve()
                 .bodyToMono(ReplacementRecommendationsResponse.class)
                 .map(ReplacementRecommendationsResponse::needReplacementParts)

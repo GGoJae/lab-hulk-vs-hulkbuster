@@ -1,6 +1,8 @@
 package gj.avengers.demo.domain.hulkbuster;
 
 import gj.avengers.demo.domain.hulkbuster.parts.*;
+import gj.avengers.demo.domain.hulkbuster.model.Status;
+import gj.avengers.demo.domain.hulkbuster.model.PartStatus;
 import gj.avengers.demo.shared.model.PartType;
 import org.springframework.stereotype.Component;
 
@@ -51,39 +53,13 @@ public class HulkBuster {
         }
     }
 
-    public TotalState getState() {
-        return TotalState.builder()
-                .partState(this.helmets)
-                .partState(this.armor)
-                .partState(this.arms)
-                .partState(this.legs)
+    public Status getState() {
+        return Status.builder()
+                .addPartStatus(PartStatus.of(this.helmets.type(), this.helmets.currentDurable()))
+                .addPartStatus(PartStatus.of(this.armor.type(), this.armor.currentDurable()))
+                .addPartStatus(PartStatus.of(this.arms.type(), this.arms.currentDurable()))
+                .addPartStatus(PartStatus.of(this.legs.type(), this.legs.currentDurable()))
                 .build();
-    }
-
-    public record TotalState(
-            List<State> states
-    ) {
-
-        public static Builder builder() {
-            return new Builder();
-        }
-
-        public static class Builder {
-            private final List<State> states = new ArrayList<>();
-
-            public Builder partState(Part part) {
-                states.add(new State(part.type(), part.currentDurable()));
-                return this;
-            }
-
-            public TotalState build() {
-                return new TotalState(this.states);
-            }
-        }
-
-        public record State(PartType part, int durable) {
-
-        }
     }
 
 

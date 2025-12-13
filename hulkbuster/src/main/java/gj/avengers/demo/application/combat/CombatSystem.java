@@ -1,8 +1,8 @@
 package gj.avengers.demo.application.combat;
 
 import gj.avengers.demo.shared.model.BodyParts;
-import gj.avengers.demo.infra.hulk.HulkGateway;
-import gj.avengers.demo.infra.jarvis.JarvisApiGateway;
+import gj.avengers.demo.application.out.HulkPort;
+import gj.avengers.demo.application.out.JarvisPort;
 import gj.avengers.demo.shared.event.AttackReceivedEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,8 +14,8 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class CombatSystem {
 
-    private final JarvisApiGateway jarvisGateway;
-    private final HulkGateway hulkGateway;
+    private final JarvisPort jarvisGateway;
+    private final HulkPort hulkPort;
 
     @EventListener
     public void counterAttack(AttackReceivedEvent event) {
@@ -24,9 +24,13 @@ public class CombatSystem {
          다음 반격 시작시엔 데이터를 바탕으로 아파하는곳 때리기 같은 로직  비동기 코드로 작성하기
          */
 
-        hulkGateway.attack(BodyParts.ARMS)
+        hulkPort.attack(BodyParts.ARMS)
                 .thenAccept(res -> {
                     log.info("헐크 공격에 대한 reaction: {}", res);
+                })
+                .exceptionally(ex -> {
+                    log.error("헐크에게 카운터 공격 중 에러", ex);
+                    return null;
                 });
 
     }

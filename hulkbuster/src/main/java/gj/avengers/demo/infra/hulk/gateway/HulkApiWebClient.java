@@ -2,7 +2,7 @@ package gj.avengers.demo.infra.hulk.gateway;
 
 import gj.avengers.demo.common.util.WebClientUtil;
 import gj.avengers.demo.shared.model.BodyParts;
-import gj.avengers.demo.infra.hulk.HulkGateway;
+import gj.avengers.demo.application.out.HulkPort;
 import gj.avengers.demo.infra.hulk.responseSpec.AttackResponse;
 import gj.avengers.demo.shared.model.Reaction;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
 
 @Component
 @RequiredArgsConstructor
-public class HulkApiWebClient implements HulkGateway {
+public class HulkApiWebClient implements HulkPort {
 
     private final HulkApiCall apiCall;
 
