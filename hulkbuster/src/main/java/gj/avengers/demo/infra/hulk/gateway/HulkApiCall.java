@@ -1,6 +1,6 @@
 package gj.avengers.demo.infra.hulk.gateway;
 
-import gj.avengers.demo.shared.model.BodyParts;
+import gj.avengers.demo.shared.model.BodyPart;
 import gj.avengers.demo.infra.hulk.requestSpec.AttackRequest;
 import gj.avengers.demo.infra.hulk.responseSpec.AttackResponse;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -17,7 +17,7 @@ public class HulkApiCall {
         this.hulkWebClient = hulkWebClient;
     }
 
-    public Mono<AttackResponse> attackCall(BodyParts targetPart) {
+    public Mono<AttackResponse> attackCall(BodyPart targetPart) {
         return hulkWebClient.post()
                 .uri("/attack")
                 .bodyValue(new AttackRequest(targetPart))

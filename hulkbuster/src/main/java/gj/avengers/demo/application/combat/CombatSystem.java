@@ -1,6 +1,6 @@
 package gj.avengers.demo.application.combat;
 
-import gj.avengers.demo.shared.model.BodyParts;
+import gj.avengers.demo.shared.model.BodyPart;
 import gj.avengers.demo.application.out.HulkPort;
 import gj.avengers.demo.application.out.JarvisPort;
 import gj.avengers.demo.shared.event.AttackReceivedEvent;
@@ -24,7 +24,7 @@ public class CombatSystem {
          다음 반격 시작시엔 데이터를 바탕으로 아파하는곳 때리기 같은 로직  비동기 코드로 작성하기
          */
 
-        hulkPort.attack(BodyParts.ARMS)
+        hulkPort.attack(BodyPart.ARMS)
                 .thenAccept(res -> {
                     log.info("헐크 공격에 대한 reaction: {}", res);
                 })

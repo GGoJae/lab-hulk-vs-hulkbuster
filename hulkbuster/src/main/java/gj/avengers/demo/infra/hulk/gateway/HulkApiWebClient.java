@@ -1,7 +1,7 @@
 package gj.avengers.demo.infra.hulk.gateway;
 
 import gj.avengers.demo.common.util.WebClientUtil;
-import gj.avengers.demo.shared.model.BodyParts;
+import gj.avengers.demo.shared.model.BodyPart;
 import gj.avengers.demo.application.out.HulkPort;
 import gj.avengers.demo.infra.hulk.responseSpec.AttackResponse;
 import gj.avengers.demo.shared.model.Reaction;
@@ -19,7 +19,7 @@ public class HulkApiWebClient implements HulkPort {
 
 
     @Override
-    public CompletableFuture<Reaction> attack(BodyParts targetPart) {
+    public CompletableFuture<Reaction> attack(BodyPart targetPart) {
         return toFutureWithDefaultPolicy(
                 apiCall.attackCall(targetPart)
                         .map(AttackResponse::reaction)

@@ -1,8 +1,8 @@
 package gj.avengers.demo.infra.hulk.requestSpec;
 
-import gj.avengers.demo.shared.model.BodyParts;
+import gj.avengers.demo.shared.model.BodyPart;
 
 public record AttackRequest(
-        BodyParts targetPart
+        BodyPart targetPart
 ) {
 }
