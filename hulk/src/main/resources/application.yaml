@@ -4,3 +4,17 @@ spring:
 
 server:
   port: 8083
+
+http:
+  client:
+    pool:
+      max-total: 200
+      max-per-route: 50
+      idle-evict: 30s
+    timeout:
+      connect: 2s
+      read: 3s
+      connection-request: 1s
+
+hulkbuster:
+  url: "http://localhost:8080"

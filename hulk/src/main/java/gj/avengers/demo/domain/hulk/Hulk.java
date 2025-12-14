@@ -1,76 +1,135 @@
 package gj.avengers.demo.domain.hulk;
 
-import gj.avengers.demo.domain.event.HulkInabilityToFight;
+import gj.avengers.demo.domain.event.DomainEvent;
+import gj.avengers.demo.domain.event.HulkInabilityToFightEvent;
 import gj.avengers.demo.shared.model.BodyPart;
 import gj.avengers.demo.shared.model.Reaction;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 @Slf4j
 @Component
 public class Hulk {
 
-    private final static long DEFAULT_GET_DAMAGE = 50;
-    private final static long ATTACKED_WITH_WEAKNESS_PART_DAMAGE = 1000;
+    private final static int DEFAULT_GET_DAMAGE = 50;
+    private final static int ATTACKED_WITH_WEAKNESS_PART_DAMAGE = 1000;
     private final static int MAX_ANGER = 90;
 
-    private final ApplicationEventPublisher eventPublisher;
+    private final List<DomainEvent> domainEvents = new ArrayList<>();
+    private final ReentrantReadWriteLock reentrantReadWriteLock = new ReentrantReadWriteLock();
+    private final ReentrantReadWriteLock.WriteLock writeLock = reentrantReadWriteLock.writeLock();
+    private final ReentrantReadWriteLock.ReadLock readLock = reentrantReadWriteLock.readLock();
 
     @Getter
     private BodyPart weaknessPart;
-    private final AtomicInteger anger = new AtomicInteger(0);
-    private final AtomicLong hp = new AtomicLong(100_000);
-    private final AtomicInteger power = new AtomicInteger(10);
+    private int anger = 0;
+    private int hp = 100_000;
+    private int power = 10;
+    private int hittingCount = 0;
 
-    public Hulk(ApplicationEventPublisher eventPublisher) {
-        this.eventPublisher = eventPublisher;
+    public Hulk() {
         changeWeaknessPart();
     }
 
-    public void changeWeaknessPart() {
-        int nextInt = ThreadLocalRandom.current().nextInt(BodyPart.values().length);
-        this.weaknessPart = BodyPart.values()[nextInt];
-    }
-
     public int totalPower() {
-        return this.power.get() + this.anger.get();
+        readLock.lock();
+        try {
+            return this.power + this.anger;
+        } finally {
+            readLock.unlock();
+        }
     }
 
     public long currentHp() {
-        return this.hp.get();
+        readLock.lock();
+        try {
+            return this.hp;
+        } finally {
+            readLock.unlock();
+        }
     }
 
-    public int increaseAnger() {
-        if (anger.get() == MAX_ANGER) return anger.get();
-            /*
-             TODO 동시성 생각하면 이 로직은 위험하고 헐크 설계 다시 해보자.
-             상태에 따라 헐크의 공격력이나 행동이 달라지니까 ReentrantLock 고려 해보자
-             */
-        return anger.incrementAndGet();
+    public boolean isHulkFainted() {
+        readLock.lock();
+        try {
+            return this.hp <= 0;
+        } finally {
+            readLock.unlock();
+        }
     }
 
-    public Reaction getDamage(BodyPart part) {
+    public Reaction takeHit(BodyPart part) {
         log.info("헐크 getDamage 진입 공격 부위 : {}", part);
-        log.info("헐크의 현재 약점 : {}", this.weaknessPart);
-        long damage = damageCalculator(part);
+        writeLock.lock();
+        try {
+            log.info("헐크의 현재 약점 : {}", this.weaknessPart);
+            int damage = damageCalculator(part);
 
-        // 데미지가 hp 보다 크면 헐크 전투 불능, 전투 종료
-        if (this.hp.get() <= damage) eventPublisher.publishEvent(new HulkInabilityToFight());
+            hittingCountInc();
+            runOutHp(damage);
 
-        this.hp.updateAndGet(currentHp -> currentHp - damage);
+            Reaction reaction = this.weaknessPart == part ? Reaction.PAINFUL : Reaction.ITCHY;
+            log.info("reaction : {}", reaction);
+            return reaction;
+        } finally {
+            writeLock.unlock();
+        }
 
-        Reaction reaction = this.weaknessPart == part ? Reaction.PAINFUL : Reaction.ITCHY;
-        log.info("reaction : {}", reaction);
-        return reaction;
     }
 
-    private long damageCalculator(BodyPart part) {
+    public List<DomainEvent> pullEvents() {
+        writeLock.lock();
+        try {
+            var copy = List.copyOf(domainEvents);
+            domainEvents.clear();
+            return copy;
+        } finally {
+            writeLock.unlock();
+        }
+    }
+
+    private void increaseAnger() {
+        if (this.anger == MAX_ANGER) {
+            log.info("이미 최대 분노라 더 이상 분노게이지가 오르지 않습니다.");
+            return;
+        }
+
+        this.anger++;
+        log.info("현재 분노 게이지 : {}", this.anger);
+    }
+
+    private void runOutHp(int damage) {
+        int before = this.hp;
+        this.hp = Math.max(0, this.hp - damage);
+        if (before > 0 && this.hp == 0) domainEvents.add(new HulkInabilityToFightEvent());
+    }
+
+    private void changeWeaknessPart() {
+        int nextInt = ThreadLocalRandom.current().nextInt(BodyPart.values().length);
+        this.weaknessPart = BodyPart.values()[nextInt];
+        log.info("이번 약점은 ! : {}", this.weaknessPart);
+    }
+
+    private void hittingCountInc() {
+        this.hittingCount++;
+
+        if (this.hittingCount % 5 == 0) {
+            this.increaseAnger();
+        }
+
+        if (this.hittingCount % 10 == 0) {
+            this.changeWeaknessPart();
+        }
+        log.info("현재 힛팅 카운트 : {}", this.hittingCount);
+    }
+
+    private int damageCalculator(BodyPart part) {
         return this.weaknessPart == part ? ATTACKED_WITH_WEAKNESS_PART_DAMAGE : DEFAULT_GET_DAMAGE;
     }
 }

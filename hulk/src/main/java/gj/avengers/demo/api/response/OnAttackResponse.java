@@ -5,4 +5,8 @@ import gj.avengers.demo.shared.model.Reaction;
 public record OnAttackResponse(
         Reaction reaction
 ) {
+
+    public static OnAttackResponse from(Reaction reaction) {
+        return new OnAttackResponse(reaction);
+    }
 }

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@RequestMapping("/hulkbuster")
 @RequiredArgsConstructor
 public class Api {
 
