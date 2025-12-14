@@ -1,4 +1,4 @@
-package gj.avengers.demo.event;
+package gj.avengers.demo.domain.event;
 
 public record HulkInabilityToFight() {
 }

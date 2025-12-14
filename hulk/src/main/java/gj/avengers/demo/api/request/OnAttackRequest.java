@@ -1,8 +1,8 @@
 package gj.avengers.demo.api.request;
 
-import gj.avengers.demo.domain.BodyParts;
+import gj.avengers.demo.shared.model.BodyPart;
 
 public record OnAttackRequest(
-        BodyParts targetPart
+        BodyPart targetPart
 ) {
 }
