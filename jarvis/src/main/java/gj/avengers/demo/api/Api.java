@@ -47,4 +47,14 @@ public class Api {
                 .thenApply(ResponseEntity::ok);
     }
 
+    @PostMapping("/battles/history")
+    public ResponseEntity<Void> battleHistory() {
+        /*
+         TODO 버스터가 공격한 후 헐크의 리액션을 기록
+         자비스가 다음에 어디 파츠를 공격할지 추천할때 쓰임
+         우선 memory Repository 로 구현 -> 추후 갈아끼우기
+         */
+        return null;
+    }
+
 }

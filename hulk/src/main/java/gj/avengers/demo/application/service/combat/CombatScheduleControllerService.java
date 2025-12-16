@@ -1,4 +1,4 @@
-package gj.avengers.demo.application.combat;
+package gj.avengers.demo.application.service.combat;
 
 import gj.avengers.demo.domain.event.HulkAngryEvent;
 import gj.avengers.demo.domain.event.HulkInabilityToFightEvent;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class CombatControllerService {
+public class CombatScheduleControllerService {
 
     private final CombatManagerService combatManagerService;
 

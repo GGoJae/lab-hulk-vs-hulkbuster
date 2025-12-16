@@ -1,6 +1,7 @@
 package gj.avengers.demo.infra.hulkbuster.requestSpec;
 
 import gj.avengers.demo.domain.model.TargetPart;
+import gj.avengers.demo.infra.hulkbuster.dto.PartType;
 
 public record AttackRequest(
         PartType part,
@@ -8,19 +9,8 @@ public record AttackRequest(
 ) {
 
     public static AttackRequest from(TargetPart targetPart, int damage) {
-        return new AttackRequest(PartType.mapping(targetPart), damage);
+        return new AttackRequest(PartType.from(targetPart), damage);
     }
 
-    public enum PartType {
-        HELMETS, ARMOR, ARMS, LEGS;
 
-        public static PartType mapping(TargetPart targetPart) {
-            return switch (targetPart) {
-                case ARMS -> PartType.ARMS;
-                case HELMETS -> PartType.HELMETS;
-                case ARMOR -> PartType.ARMOR;
-                case LEGS -> PartType.LEGS;
-            };
-        }
-    }
 }

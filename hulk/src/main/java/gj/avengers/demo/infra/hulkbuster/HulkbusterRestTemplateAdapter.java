@@ -1,8 +1,10 @@
 package gj.avengers.demo.infra.hulkbuster;
 
+import gj.avengers.demo.application.model.PartWithCondition;
 import gj.avengers.demo.application.out.HulkbusterPort;
 import gj.avengers.demo.domain.model.TargetPart;
 import gj.avengers.demo.infra.hulkbuster.requestSpec.AttackRequest;
+import gj.avengers.demo.infra.hulkbuster.responseSpec.AttackResponse;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
@@ -25,13 +27,13 @@ public class HulkbusterRestTemplateAdapter implements HulkbusterPort {
     }
 
     @Override
-    public CompletableFuture<Void> attackOnHulkbuster(TargetPart targetPart, int damage) {
-        return CompletableFuture.runAsync(() -> {
-            restTemplate.postForObject(
+    public CompletableFuture<PartWithCondition> attackOnHulkbuster(TargetPart targetPart, int damage) {
+        return CompletableFuture.supplyAsync(() -> {
+            return restTemplate.postForObject(
                     "/attack",
                     AttackRequest.from(targetPart, damage),
-                    Void.class
+                    AttackResponse.class
             );
-        }, te);
+        }, te).thenApply(AttackResponse::toDomain);
     }
 }

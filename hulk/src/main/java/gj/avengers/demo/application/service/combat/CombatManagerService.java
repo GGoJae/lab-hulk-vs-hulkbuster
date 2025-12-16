@@ -1,4 +1,4 @@
-package gj.avengers.demo.application.combat;
+package gj.avengers.demo.application.service.combat;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 @Service
@@ -15,6 +16,7 @@ public class CombatManagerService {
 
     private final ThreadPoolTaskScheduler taskScheduler;
     private final CombatService combatService;
+    private final AtomicInteger turn = new AtomicInteger(0);
     private ScheduledFuture<?> attackJob;
 
     public void combatStart() {
@@ -23,8 +25,8 @@ public class CombatManagerService {
         }
 
         attackJob = taskScheduler.scheduleAtFixedRate(
-                combatService::attackOnHulkbuster
-                , Duration.ofSeconds(1));
+                () -> combatService.attackOnHulkbuster(turn.incrementAndGet())
+                , Duration.ofSeconds(2));
 
         log.info("헐크!!! 공격 시작!!!");
     }
