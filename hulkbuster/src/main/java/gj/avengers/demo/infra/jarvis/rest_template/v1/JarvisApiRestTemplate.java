@@ -3,8 +3,8 @@ package gj.avengers.demo.infra.jarvis.rest_template.v1;
 import gj.avengers.demo.application.out.JarvisPort;
 import gj.avengers.demo.infra.jarvis.responseSpec.ReplacementRecommendationsResponse;
 import gj.avengers.demo.domain.hulkbuster.model.Status;
-import gj.avengers.demo.shared.model.LocationInfo;
-import gj.avengers.demo.shared.model.PartType;
+import gj.avengers.demo.application.model.LocationInfo;
+import gj.avengers.demo.application.model.PartType;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 

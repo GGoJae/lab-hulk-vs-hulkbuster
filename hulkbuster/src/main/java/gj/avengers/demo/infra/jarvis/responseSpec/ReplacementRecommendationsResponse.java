@@ -1,6 +1,6 @@
 package gj.avengers.demo.infra.jarvis.responseSpec;
 
-import gj.avengers.demo.shared.model.PartType;
+import gj.avengers.demo.application.model.PartType;
 
 import java.util.List;
 

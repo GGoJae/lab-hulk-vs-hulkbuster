@@ -1,4 +1,4 @@
-package gj.avengers.demo.shared.model;
+package gj.avengers.demo.application.model;
 
 public enum PartType {
     HELMETS, ARMOR, ARMS, LEGS

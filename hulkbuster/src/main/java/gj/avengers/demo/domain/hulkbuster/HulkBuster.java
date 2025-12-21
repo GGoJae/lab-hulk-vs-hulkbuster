@@ -1,9 +1,14 @@
 package gj.avengers.demo.domain.hulkbuster;
 
+import gj.avengers.demo.domain.hulkbuster.model.DamageResult;
 import gj.avengers.demo.domain.hulkbuster.parts.*;
 import gj.avengers.demo.domain.hulkbuster.model.Status;
 import gj.avengers.demo.domain.hulkbuster.model.PartStatus;
-import gj.avengers.demo.shared.model.PartType;
+import gj.avengers.demo.domain.hulkbuster.parts.impl.Armor;
+import gj.avengers.demo.domain.hulkbuster.parts.impl.Arms;
+import gj.avengers.demo.domain.hulkbuster.parts.impl.Helmets;
+import gj.avengers.demo.domain.hulkbuster.parts.impl.Legs;
+import gj.avengers.demo.application.model.PartType;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -38,7 +43,7 @@ public class HulkBuster {
         }
     }
 
-    public void beAttacked(PartType partType, int damage) {
+    public DamageResult beAttacked(PartType partType, int damage) {
         writeLock.lock();
         try {
             Part part = switch (partType) {
@@ -47,7 +52,7 @@ public class HulkBuster {
                 case ARMS -> this.arms;
                 case LEGS -> this.legs;
             };
-            part.getDamage(damage);
+            return part.applyDamage(damage);
         } finally {
             writeLock.unlock();
         }

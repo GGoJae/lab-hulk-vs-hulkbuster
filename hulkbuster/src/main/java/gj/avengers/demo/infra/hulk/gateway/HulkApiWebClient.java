@@ -1,10 +1,10 @@
 package gj.avengers.demo.infra.hulk.gateway;
 
 import gj.avengers.demo.common.util.WebClientUtil;
-import gj.avengers.demo.shared.model.BodyPart;
+import gj.avengers.demo.application.model.BodyPart;
 import gj.avengers.demo.application.out.HulkPort;
 import gj.avengers.demo.infra.hulk.responseSpec.AttackResponse;
-import gj.avengers.demo.shared.model.Reaction;
+import gj.avengers.demo.application.model.Reaction;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;

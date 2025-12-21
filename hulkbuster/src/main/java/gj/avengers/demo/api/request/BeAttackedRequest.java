@@ -1,6 +1,6 @@
 package gj.avengers.demo.api.request;
 
-import gj.avengers.demo.shared.model.PartType;
+import gj.avengers.demo.application.model.PartType;
 
 public record BeAttackedRequest(
         PartType part,

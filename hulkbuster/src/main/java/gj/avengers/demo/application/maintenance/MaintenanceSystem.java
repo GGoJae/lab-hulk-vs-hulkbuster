@@ -2,7 +2,9 @@ package gj.avengers.demo.application.maintenance;
 
 import gj.avengers.demo.application.out.JarvisPort;
 import gj.avengers.demo.application.out.VeronicaPort;
-import gj.avengers.demo.shared.event.AttackReceivedEvent;
+import gj.avengers.demo.application.event.AttackReceivedEvent;
+import gj.avengers.demo.domain.hulkbuster.HulkBuster;
+import gj.avengers.demo.domain.hulkbuster.model.Status;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
@@ -15,6 +17,7 @@ import java.util.concurrent.CompletableFuture;
 @RequiredArgsConstructor
 public class MaintenanceSystem {
 
+    private final HulkBuster hulkBuster;
     private final JarvisPort jarvisPort;
     private final VeronicaPort veronicaPort;
 
@@ -34,9 +37,13 @@ public class MaintenanceSystem {
     @EventListener
     public void determiningDamageAndRequestParts(AttackReceivedEvent event) {
 
-        // TODO 우선 상태에서 망가진 파츠가 있다면 바로 베로니카에게 파츠 요청 api 날리기
+        /*
+         TODO 우선 상태에서 망가진 파츠가 있다면 바로 베로니카에게 파츠 요청 api 날리기
+         자비스랑 계약 변경하기. 기존 state ->  AttackReceivedEvent 에 맞게
+         */
+        Status state = hulkBuster.getState();
 
-        jarvisPort.requestReplacementRecommendations(event.state())
+        jarvisPort.requestReplacementRecommendations(state)
                 .thenCompose(needReplacementParts -> {
                     if (needReplacementParts.isEmpty()) {
                         log.info("교체 불필요, 위치 정보 필요없음");

@@ -1,9 +1,9 @@
 package gj.avengers.demo.application.combat;
 
-import gj.avengers.demo.shared.model.BodyPart;
+import gj.avengers.demo.application.model.BodyPart;
 import gj.avengers.demo.application.out.HulkPort;
 import gj.avengers.demo.application.out.JarvisPort;
-import gj.avengers.demo.shared.event.AttackReceivedEvent;
+import gj.avengers.demo.application.event.AttackReceivedEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;

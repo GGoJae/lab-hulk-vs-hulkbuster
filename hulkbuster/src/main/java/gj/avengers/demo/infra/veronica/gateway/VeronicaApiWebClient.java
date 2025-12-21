@@ -1,8 +1,8 @@
 package gj.avengers.demo.infra.veronica.gateway;
 
 import gj.avengers.demo.common.util.WebClientUtil;
-import gj.avengers.demo.shared.model.LocationInfo;
-import gj.avengers.demo.shared.model.PartType;
+import gj.avengers.demo.application.model.LocationInfo;
+import gj.avengers.demo.application.model.PartType;
 import gj.avengers.demo.application.out.VeronicaPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
