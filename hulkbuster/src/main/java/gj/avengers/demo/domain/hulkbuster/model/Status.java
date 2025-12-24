@@ -1,11 +1,17 @@
 package gj.avengers.demo.domain.hulkbuster.model;
 
+import gj.avengers.demo.application.model.PartType;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public record Status(
         List<PartStatus> partStatuses
 ) {
+
+    public PartStatus findByPart(PartType type) {
+        return partStatuses.stream().filter(ps -> ps.part() == type).findFirst().orElseThrow();
+    }
 
     public static Builder builder() {
         return new Builder();

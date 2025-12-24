@@ -44,6 +44,7 @@ public class HulkBuster {
     }
 
     public DamageResult beAttacked(PartType partType, int damage) {
+        if (damage < 0) throw new IllegalStateException();
         writeLock.lock();
         try {
             Part part = switch (partType) {
