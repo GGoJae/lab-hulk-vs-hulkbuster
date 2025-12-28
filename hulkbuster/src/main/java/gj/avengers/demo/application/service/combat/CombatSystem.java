@@ -1,4 +1,4 @@
-package gj.avengers.demo.application.combat;
+package gj.avengers.demo.application.service.combat;
 
 import gj.avengers.demo.application.model.BodyPart;
 import gj.avengers.demo.application.out.HulkPort;

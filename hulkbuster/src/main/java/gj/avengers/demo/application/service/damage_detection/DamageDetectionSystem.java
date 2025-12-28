@@ -1,4 +1,4 @@
-package gj.avengers.demo.application.damageDetection;
+package gj.avengers.demo.application.service.damage_detection;
 
 import gj.avengers.demo.application.event.AttackReceivedEvent;
 import gj.avengers.demo.application.model.PartType;

@@ -1,4 +1,4 @@
-package gj.avengers.demo.application.maintenance;
+package gj.avengers.demo.application.service.maintenance;
 
 import gj.avengers.demo.application.out.JarvisPort;
 import gj.avengers.demo.application.out.VeronicaPort;

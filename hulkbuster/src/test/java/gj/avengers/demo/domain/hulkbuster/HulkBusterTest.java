@@ -116,6 +116,7 @@ class HulkBusterTest {
         PartType armor = PartType.ARMOR;
         HulkBuster hulkBuster = new HulkBuster();
         int beforeDurable = hulkBuster.getState().findByPart(armor).durable();
+        int maxDurable = Armor.MAX_DURABLE;
 
         // when
         org.junit.jupiter.api.Assertions.assertThrows(
@@ -129,7 +130,7 @@ class HulkBusterTest {
                 .durable();
 
         assertThat(afterDurable).isEqualTo(beforeDurable);
-
+        assertThat(afterDurable).isEqualTo(maxDurable);
     }
 
 

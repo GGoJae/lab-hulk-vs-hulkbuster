@@ -2,7 +2,7 @@ package gj.avengers.demo.api;
 
 import gj.avengers.demo.api.request.BeAttackedRequest;
 import gj.avengers.demo.api.response.BeAttackedResponse;
-import gj.avengers.demo.application.damageDetection.DamageDetectionSystem;
+import gj.avengers.demo.application.service.damage_detection.DamageDetectionSystem;
 import gj.avengers.demo.domain.hulkbuster.model.DamageResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
