@@ -7,7 +7,7 @@ import lombok.Getter;
 @Getter
 public class Helmets extends DurablePart {
 
-    private static final int MAX_DURABLE = 100;
+    public static final int MAX_DURABLE = 100;
 
     private Helmets() {
         super(PartType.HELMETS, MAX_DURABLE);

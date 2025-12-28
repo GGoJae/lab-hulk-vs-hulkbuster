@@ -6,7 +6,7 @@ import gj.avengers.demo.application.model.PartType;
 
 public class Armor extends DurablePart {
 
-    private static final int MAX_DURABLE = 100;
+    public static final int MAX_DURABLE = 100;
 
     private Armor() {
         super(PartType.ARMOR, MAX_DURABLE);
