@@ -55,9 +55,8 @@ public class MaintenanceSystem {
                             .thenAccept(v -> log.info("베로니카에 파츠 요청 성공"));
 
                 })
-                .exceptionally(ex -> {
+                .whenComplete((v, ex) -> {
                     log.error("공격 당한 후 파츠 요청 메서드 중 에러 발생", ex);
-                    return null;
                 });
 
     }

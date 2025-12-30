@@ -1,15 +1,15 @@
 package gj.avengers.demo.application.out;
 
-import gj.avengers.demo.domain.hulkbuster.model.Status;
 import gj.avengers.demo.application.model.LocationInfo;
 import gj.avengers.demo.application.model.PartType;
+import gj.avengers.demo.domain.hulkbuster.model.Status;
 
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
 
 public interface JarvisPort {
 
-    CompletableFuture<List<PartType>> requestReplacementRecommendations(Status state);
+    CompletionStage<List<PartType>> requestReplacementRecommendations(Status state);
 
-    CompletableFuture<LocationInfo> requestHulkbusterLocation();
+    CompletionStage<LocationInfo> requestHulkbusterLocation();
 }
